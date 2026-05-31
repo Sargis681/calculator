@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Շրջհարկի Լրիվ Հաշվիչ – Հարկեր, ծախսեր, զուտ շահույթ</title>
+    <link rel="stylesheet" href="shrj/style1.css">
+    <link rel="stylesheet" href="menu.css">
+
+
+</head>
+<body>
+
+<div class="calculator">
+   
+        <h1>📊 Շրջհարկի Լրիվ Հաշվիչ</h1>
+        <div class="sub">Հարկեր, աշխատավարձի ֆոնդ, եկամտային հարկ և զուտ շահույթ</div>
+
+        <!-- Остальной код калькулятора без изменений -->
+        <div class="input-group">
+            <label>🏢 Գործունեության ոլորտ (շրջհարկի դրույք)</label>
+            <select id="sector">
+                <option value="10">Առևտուր — 10%</option>
+                <option value="12">Հանրային սնունդ — 12%</option>
+                <option value="7">Արտադրություն — 7%</option>
+                <option value="1">ՏՏ — 1%</option>
+                <option value="10">Ծառայություններ — 10%</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label>💰 Շրջանառություն (համախառն եկամուտ, դրամ)</label>
+            <input type="number" id="turnover" placeholder="Օրինակ՝ 8,500,000" value="">
+        </div>
+
+        <div class="input-group">
+            <label>👥 Աշխատակիցների քանակ</label>
+            <input type="number" id="employees" placeholder="Օրինակ՝ 3" value="">
+        </div>
+
+        <div class="input-group">
+            <label>💵 Մեկ աշխատակցի համախառն աշխատավարձ (ամսական) <i>(Gross salary)</i></label>
+            <input type="number" id="salary" placeholder="Օրինակ՝ 150000" value="">
+        </div>
+
+        <div class="input-group">
+            <label>📦 Այլ գործառնական ծախսեր (վարձ, կոմունալ, հումք)</label>
+            <input type="number" id="expenses" placeholder="Օրինակ՝ 450000" value="">
+        </div>
+
+        <button onclick="calculateFullTax()">🧮 ՀԱՇՎԱՐԿԵԼ ԱՄԲՈՂՋԱԿԱՆԸ</button>
+
+        <div class="result" id="resultBlock">
+            <h2>📋 Հաշվարկի արդյունք</h2>
+            <div class="result-row">
+                <span class="result-label">Շրջհարկ (տարածքային հարկ)</span>
+                <span class="result-value" id="taxResult">0 դրամ</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">🏦 Աշխատավարձի համախառն ֆոնդ (Բոլոր աշխատակիցներ)</span>
+                <span class="result-value" id="salaryFund">0 դրամ</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">📌 Եկամտային հարկ (20% համախառնից) – պահվում է աշխատավարձից</span>
+                <span class="result-value" id="incomeTax">0 դրամ</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">🟢 Զուտ աշխատավարձի ֆոնդ (աշխատակիցներին փաստացի տրվող)</span>
+                <span class="result-value highlight" id="netSalaryFund">0 դրամ</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">📎 Այլ ծախսեր (գործառնական)</span>
+                <span class="result-value" id="expenseResult">0 դրամ</span>
+            </div>
+            <div class="result-row total-line">
+                <span class="result-label">📉 Ընդհանուր ծախս (Շրջհարկ + Համախառն աշխատավարձի ֆոնդ + Այլ ծախսեր)</span>
+                <span class="result-value highlight" id="totalResult">0 դրամ</span>
+            </div>
+            <div class="profit-line">
+                <span class="profit-label">✨ Զուտ շահույթ (Շրջանառություն – Ընդհանուր ծախս)</span>
+                <span class="profit-number" id="netProfit">0 դրամ</span>
+            </div>
+            <div class="profit-line" style="background:#fef9e3; margin-top:8px;">
+                <span class="profit-label" style="color:#b45309;">📈 Շահութաբերության մարժա</span>
+                <span class="profit-number" id="profitMargin" style="color:#b45309;">0%</span>
+            </div>
+            <div class="flex-note">
+                <div class="info-note">
+                    ⚡ Նշում. համախառն աշխատավարձից 20% եկամտային հարկը արդեն ներառված է ձեռնարկության ծախսում (համախառն ֆոնդ)՝ չկրկնապատկվելով։
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="index1.js"></script>
+</body>
+</html>

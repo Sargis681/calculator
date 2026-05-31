@@ -2,97 +2,168 @@
 <html lang="hy">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Շրջհարկի Լրիվ Հաշվիչ – Հարկեր, ծախսեր, զուտ շահույթ</title>
-    <link rel="stylesheet" href="shrj/style1.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Հարկային գործիքներ – Միասնական նավիգացիա</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="menu.css">
-
-
+       
 </head>
 <body>
 
-<div class="calculator">
-   
-        <h1>📊 Շրջհարկի Լրիվ Հաշվիչ</h1>
-        <div class="sub">Հարկեր, աշխատավարձի ֆոնդ, եկամտային հարկ և զուտ շահույթ</div>
-
-        <!-- Остальной код калькулятора без изменений -->
-        <div class="input-group">
-            <label>🏢 Գործունեության ոլորտ (շրջհարկի դրույք)</label>
-            <select id="sector">
-                <option value="10">Առևտուր — 10%</option>
-                <option value="12">Հանրային սնունդ — 12%</option>
-                <option value="7">Արտադրություն — 7%</option>
-                <option value="1">ՏՏ — 1%</option>
-                <option value="10">Ծառայություններ — 10%</option>
-            </select>
+<!-- ========== ԳԼԽԱՄԱՍ (ՄԵՆՅՈՒ + ROUTING) ========== -->
+<header class="global-header">
+    <div class="header-container">
+       
         </div>
-
-        <div class="input-group">
-            <label>💰 Շրջանառություն (համախառն եկամուտ, դրամ)</label>
-            <input type="number" id="turnover" placeholder="Օրինակ՝ 8,500,000" value="">
+        <div class="nav-routing" id="routingMenu">
+            <button class="nav-btn active" data-route="turnover">
+                📊 <span>Շրջհարկի հաշվիչ</span>
+            </button>
+            <button class="nav-btn" data-route="micro">
+                📘 <span>Միկրոձեռնարկատիրություն</span>
+            </button>
+            <button class="nav-btn" data-route="salary">
+                💼 <span>Աշխատավարձի հաշվիչ</span>
+            </button>
         </div>
+        
+    </div>
+</header>
 
-        <div class="input-group">
-            <label>👥 Աշխատակիցների քանակ</label>
-            <input type="number" id="employees" placeholder="Օրինակ՝ 3" value="">
-        </div>
-
-        <div class="input-group">
-            <label>💵 Մեկ աշխատակցի համախառն աշխատավարձ (ամսական) <i>(Gross salary)</i></label>
-            <input type="number" id="salary" placeholder="Օրինակ՝ 150000" value="">
-        </div>
-
-        <div class="input-group">
-            <label>📦 Այլ գործառնական ծախսեր (վարձ, կոմունալ, հումք)</label>
-            <input type="number" id="expenses" placeholder="Օրինակ՝ 450000" value="">
-        </div>
-
-        <button onclick="calculateFullTax()">🧮 ՀԱՇՎԱՐԿԵԼ ԱՄԲՈՂՋԱԿԱՆԸ</button>
-
-        <div class="result" id="resultBlock">
-            <h2>📋 Հաշվարկի արդյունք</h2>
-            <div class="result-row">
-                <span class="result-label">Շրջհարկ (տարածքային հարկ)</span>
-                <span class="result-value" id="taxResult">0 դրամ</span>
-            </div>
-            <div class="result-row">
-                <span class="result-label">🏦 Աշխատավարձի համախառն ֆոնդ (Բոլոր աշխատակիցներ)</span>
-                <span class="result-value" id="salaryFund">0 դրամ</span>
-            </div>
-            <div class="result-row">
-                <span class="result-label">📌 Եկամտային հարկ (20% համախառնից) – պահվում է աշխատավարձից</span>
-                <span class="result-value" id="incomeTax">0 դրամ</span>
-            </div>
-            <div class="result-row">
-                <span class="result-label">🟢 Զուտ աշխատավարձի ֆոնդ (աշխատակիցներին փաստացի տրվող)</span>
-                <span class="result-value highlight" id="netSalaryFund">0 դրամ</span>
-            </div>
-            <div class="result-row">
-                <span class="result-label">📎 Այլ ծախսեր (գործառնական)</span>
-                <span class="result-value" id="expenseResult">0 դրամ</span>
-            </div>
-            <div class="result-row total-line">
-                <span class="result-label">📉 Ընդհանուր ծախս (Շրջհարկ + Համախառն աշխատավարձի ֆոնդ + Այլ ծախսեր)</span>
-                <span class="result-value highlight" id="totalResult">0 դրամ</span>
-            </div>
-            <div class="profit-line">
-                <span class="profit-label">✨ Զուտ շահույթ (Շրջանառություն – Ընդհանուր ծախս)</span>
-                <span class="profit-number" id="netProfit">0 դրամ</span>
-            </div>
-            <div class="profit-line" style="background:#fef9e3; margin-top:8px;">
-                <span class="profit-label" style="color:#b45309;">📈 Շահութաբերության մարժա</span>
-                <span class="profit-number" id="profitMargin" style="color:#b45309;">0%</span>
-            </div>
-            <div class="flex-note">
-                <div class="info-note">
-                    ⚡ Նշում. համախառն աշխատավարձից 20% եկամտային հարկը արդեն ներառված է ձեռնարկության ծախսում (համախառն ֆոնդ)՝ չկրկնապատկվելով։
-                </div>
-            </div>
-        </div>
+<!-- ========== CONTENT AREA (DYNAMIC IFRAME ROUTING) ========== -->
+<div class="content-frame">
+    <div class="iframe-wrapper">
+        <iframe id="appIframe" title="Հարկային գործիք" src="./index1.html" frameborder="0"></iframe>
     </div>
 </div>
 
-<script src="index1.js"></script>
+<footer>
+    📌 Միասնական նավիգացիոն համակարգ – հեշտ անցում երեք հիմնական գործիքների միջև: Բոլոր հաշվարկները կատարվում են ՀՀ 2025թ. դրույքներով:
+</footer>
+
+<script>
+    // ---------- ROUTING CONFIGURATION ----------
+    // Հասցեներ առկա երեք էջերի համար (նույն դիրեկտորիայում)
+    const routes = {
+        turnover: {
+            title: 'Շրջհարկի լրիվ հաշվիչ – Հարկեր, ծախսեր, զուտ շահույթ',
+            path: './index1.html'
+        },
+        micro: {
+            title: 'Միկրոձեռնարկատիրության համակարգ Հայաստանում | Ուղեցույց 2025',
+            path: './index2.html'
+        },
+        salary: {
+            title: 'Աշխատավարձի բարդ հաշվիչ – Հայաստան 2025',
+            path: './index3.html'
+        }
+    };
+
+    // DOM elements
+    const iframe = document.getElementById('appIframe');
+    const navBtns = document.querySelectorAll('.nav-btn');
+    let currentRoute = 'turnover';   // default
+
+    //  function to update active class and load iframe
+    function setActiveRoute(routeId) {
+        // update active class on buttons
+        navBtns.forEach(btn => {
+            const btnRoute = btn.getAttribute('data-route');
+            if (btnRoute === routeId) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+
+        // change iframe source only if different from current path
+        const newPath = routes[routeId]?.path;
+        if (newPath && iframe.src !== window.location.origin + newPath && !iframe.src.endsWith(newPath)) {
+            // show subtle loading style (optional)
+            iframe.style.opacity = '0.7';
+            iframe.src = newPath;
+        } else if (newPath && iframe.src.includes(newPath.replace('./', ''))) {
+            // already same page, just ensure title update
+            document.title = routes[routeId].title;
+            iframe.style.opacity = '1';
+            return;
+        } else if (newPath) {
+            iframe.style.opacity = '0.7';
+            iframe.src = newPath;
+        }
+
+        // update browser / page title
+        document.title = routes[routeId].title;
+        currentRoute = routeId;
+
+        // store current route in sessionStorage for possible refresh consistency
+        sessionStorage.setItem('activeRoute', routeId);
+    }
+
+    // when iframe loads, restore opacity
+    iframe.addEventListener('load', () => {
+        iframe.style.opacity = '1';
+        // additional: Adjust iframe height dynamically (to avoid double scroll)
+        try {
+            // optional: communicate with iframe content height? not required but user-friendly.
+            // just reset opacity.
+        } catch(e) {}
+    });
+
+    // add click handlers for buttons
+    navBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const routeId = btn.getAttribute('data-route');
+            if (routeId && routes[routeId]) {
+                setActiveRoute(routeId);
+            }
+        });
+    });
+
+    // restore route after page refresh (sessionStorage)
+    const savedRoute = sessionStorage.getItem('activeRoute');
+    if (savedRoute && routes[savedRoute]) {
+        // ensure iframe src is set accordingly, but also keep active style.
+        currentRoute = savedRoute;
+        // set active class before loading
+        navBtns.forEach(btn => {
+            const r = btn.getAttribute('data-route');
+            if (r === savedRoute) btn.classList.add('active');
+            else btn.classList.remove('active');
+        });
+        // set iframe source without extra flicker
+        iframe.style.opacity = '0.7';
+        iframe.src = routes[savedRoute].path;
+        document.title = routes[savedRoute].title;
+    } else {
+        // default turnover already loaded from initial src=index.html
+        // but we must ensure active ui corresponds: index.html is turnover route
+        // Ensure active class match (already has active on first btn by html)
+        // Synchronize title
+        document.title = routes.turnover.title;
+        sessionStorage.setItem('activeRoute', 'turnover');
+    }
+
+    // handle edge case if iframe fails to load (404)
+    iframe.onerror = function() {
+        iframe.style.opacity = '1';
+        const errorMsg = document.createElement('div');
+        errorMsg.style.padding = '2rem';
+        errorMsg.style.textAlign = 'center';
+        errorMsg.style.color = '#b91c1c';
+        errorMsg.innerText = '⚠️ Չհաջողվեց բեռնել էջը։ Խնդրում ենք ստուգել ֆայլերի առկայությունը (index.html, index2.html, index3.html) նույն թղթապանակում։';
+        iframe.parentNode.insertBefore(errorMsg, iframe);
+    };
+
+    // additional fix for iframe content not stretching fully on some screens — set height on load communication
+    window.addEventListener('resize', () => {
+        // simple refresh no need heavy changes
+    });
+
+    // (bonus) Listen to message from iframes if needed, not mandatory
+    window.addEventListener('message', (e) => {
+        // optional: could synchronize something, but not required
+    });
+</script>
 </body>
 </html>
