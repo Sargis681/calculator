@@ -1,0 +1,516 @@
+Ահա բարդ պարամետրերով աշխատավարձի հաշվիչ, որը հաշվի է առնում Հայաստանի հարկային դրույքները, միկրոձեռնարկատիրության հատուկ ռեժիմը, հավելավճարները, արտաժամյա աշխատանքը, նվազեցումները և երեխաների քանակը։
+
+```html
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Աշխատավարձի բարդ հաշվիչ | Հայաստան 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #e2e8f0 0%, #f1f5f9 100%);
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            padding: 2rem 1.5rem;
+            color: #0f172a;
+        }
+
+        .calculator-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* header */
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1e3a5f, #0f2b3d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.01em;
+        }
+
+        .header p {
+            color: #334155;
+            margin-top: 0.5rem;
+        }
+
+        /* main grid */
+        .salary-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .input-panel {
+            flex: 1.2;
+            min-width: 320px;
+            background: white;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
+            padding: 1.8rem;
+            transition: all 0.2s;
+        }
+
+        .result-panel {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
+            padding: 1.8rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* form styles */
+        .param-group {
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 1rem;
+        }
+
+        .param-group h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            color: #0c4a6e;
+        }
+
+        .input-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            align-items: flex-end;
+        }
+
+        .input-field {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .input-field label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #475569;
+            margin-bottom: 0.25rem;
+        }
+
+        .input-field input, .input-field select {
+            width: 100%;
+            padding: 0.65rem 0.75rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 1rem;
+            font-size: 0.9rem;
+            background: #fefefe;
+            transition: 0.15s;
+            font-family: inherit;
+        }
+
+        .input-field input:focus, .input-field select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 1.2rem;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        hr {
+            margin: 1rem 0;
+            border: none;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .result-card {
+            background: #f8fafc;
+            border-radius: 1.5rem;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #e2edff;
+        }
+
+        .result-line {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.7rem 0;
+            border-bottom: 1px dashed #cbd5e1;
+            font-size: 1rem;
+        }
+
+        .result-line.total {
+            border-bottom: none;
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: #0f3b5c;
+            margin-top: 0.5rem;
+        }
+
+        .net-salary {
+            background: linear-gradient(115deg, #d9f0ec 0%, #c8e7e1 100%);
+            border-radius: 1.2rem;
+            padding: 1.2rem;
+            text-align: center;
+            margin-top: 0.8rem;
+        }
+
+        .net-salary span {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #0b3b3a;
+        }
+
+        .badge {
+            background: #eef2ff;
+            padding: 0.2rem 0.7rem;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        button {
+            background: #1e3a5f;
+            border: none;
+            width: 100%;
+            padding: 0.85rem;
+            font-weight: 600;
+            font-size: 1rem;
+            color: white;
+            border-radius: 2rem;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 0.5rem;
+            font-family: inherit;
+        }
+
+        button:hover {
+            background: #0f2b3d;
+            transform: scale(0.98);
+        }
+
+        .info-note {
+            font-size: 0.7rem;
+            text-align: center;
+            color: #5b6e8c;
+            margin-top: 1.5rem;
+        }
+
+        @media (max-width: 780px) {
+            body {
+                padding: 1rem;
+            }
+            .input-panel, .result-panel {
+                padding: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="calculator-container">
+    <div class="header">
+        <h1>💼 Աշխատավարձի բարդ հաշվիչ</h1>
+        <p>Հայաստան · 2025 թ. դրույքներ · Միկրոձեռնարկատիրության աշխատող · Հավելավճարներ & նվազեցումներ</p>
+    </div>
+
+    <div class="salary-grid">
+        <!-- INPUT PANEL -->
+        <div class="input-panel">
+            <div class="param-group">
+                <h3>📋 Հիմնական պարամետրեր</h3>
+                <div class="input-row">
+                    <div class="input-field">
+                        <label>Համախառն աշխատավարձ (դրամ)</label>
+                        <input type="number" id="grossSalary" value="250000" step="5000">
+                    </div>
+                    <div class="input-field">
+                        <label>Պրեմիա / Հավելավճար (դրամ)</label>
+                        <input type="number" id="bonus" value="0" step="10000">
+                    </div>
+                </div>
+                <div class="input-row">
+                    <div class="input-field">
+                        <label>Արտաժամյա ժամեր</label>
+                        <input type="number" id="overtimeHours" value="0" step="1" min="0">
+                    </div>
+                    <div class="input-field">
+                        <label>Ժամային դրույք (արտաժամյա, դրամ/ժամ)</label>
+                        <input type="number" id="overtimeRate" value="2500" step="100">
+                    </div>
+                </div>
+            </div>
+
+            <div class="param-group">
+                <h3>⚖️ Հարկային ռեժիմ</h3>
+                <div class="radio-group" id="taxRegimeGroup">
+                    <label>
+                        <input type="radio" name="taxRegime" value="general" checked> Ընդհանուր (20% եկամտային + 5% սոց. վճար)
+                    </label>
+                    <label>
+                        <input type="radio" name="taxRegime" value="micro"> Միկրոձեռնարկատիրության աշխատող (ֆիքսված 5000 դրամ)
+                    </label>
+                </div>
+                <div class="info-note" style="margin-top: 0.5rem; text-align: left;">
+                    ℹ️ Միկրոռեժիմում աշխատողի եկամտային հարկը 5000 դրամ/ամիս, սոցիալական վճար չի գանձվում:
+                </div>
+            </div>
+
+            <div class="param-group">
+                <h3>🧑‍🧒 Նվազեցումներ և արտոնություններ</h3>
+                <div class="input-row">
+                    <div class="input-field">
+                        <label>👶 Երեխաների քանակ (մինչև 18 տ.)</label>
+                        <input type="number" id="childrenCount" value="0" min="0" step="1">
+                    </div>
+                    <div class="input-field">
+                        <label>📉 Լրաց. նվազեցում (եկամտային հարկից)</label>
+                        <input type="number" id="additionalDeduction" value="0" step="5000" placeholder="Օրինակ՝ կամավոր կենսաթոշակ">
+                    </div>
+                </div>
+                <div class="input-field">
+                    <label>Այլ չհարկվող նվազեցում (օրինակ՝ բարեգործական)</label>
+                    <input type="number" id="nonTaxableDeduction" value="0" step="5000">
+                </div>
+                <div class="info-note" style="margin-top: 0.5rem;">
+                    *Երեխաների համար նվազեցումը կազմում է ամսական 15,000 դրամ յուրաքանչյուր երեխայի համար (համաձայն ՀՀ օրենսդրության, 2025):
+                </div>
+            </div>
+
+            <div class="param-group">
+                <h3>⏱️ Այլ պայմաններ (դեպքեր)</h3>
+                <div class="input-row">
+                    <div class="input-field">
+                        <label>Գիշերային ժամերի հավելավճար (դրամ)</label>
+                        <input type="number" id="nightShiftBonus" value="0" step="1000">
+                    </div>
+                    <div class="input-field">
+                        <label>Տոնական/հանգստյան օր (հավելավճար)</label>
+                        <input type="number" id="holidayBonus" value="0" step="1000">
+                    </div>
+                </div>
+                <div class="input-field">
+                    <label>Աշխատած օրեր (թերի ամսվա համար, լռությամբ 21)</label>
+                    <input type="number" id="workDays" value="21" step="1" min="1" max="31">
+                </div>
+            </div>
+            <button id="calculateBtn">📊 ՀԱՇՎԱՐԿԵԼ ԱՇԽԱՏԱՎԱՐՁԸ</button>
+        </div>
+
+        <!-- RESULT PANEL -->
+        <div class="result-panel" id="resultPanel">
+            <h3 style="margin-bottom: 1.2rem;">💰 Արդյունքներ (ամսական)</h3>
+            <div id="dynamicResults">
+                <!-- filled by js -->
+                <div class="result-card">
+                    <div class="result-line"><strong>Ընդհանուր համախառն</strong> <span id="totalGross">0</span> դրամ</div>
+                    <div class="result-line"><strong>Եկամտային հարկ (PIT)</strong> <span id="pitAmount">0</span> դրամ</div>
+                    <div class="result-line"><strong>Սոցիալական վճար (աշխատողի 5%)</strong> <span id="socialTax">0</span> դրամ</div>
+                    <div class="result-line"><strong>Երեխաների նվազեցում</strong> <span id="childDeduction">0</span> դրամ</div>
+                    <div class="result-line"><strong>Ընդհանուր պահումներ (հարկեր+վճար)</strong> <span id="totalDeductions">0</span> դրամ</div>
+                    <div class="net-salary">
+                        🧾 <strong>ԶՈՒՏ ԱՇԽԱՏԱՎԱՐՁ (Ստացվող գումար)</strong><br>
+                        <span id="netSalary">0</span> դրամ
+                    </div>
+                </div>
+
+                <div class="result-card">
+                    <div class="result-line"><strong>➕ Գործատուի լրացուցիչ ծախս (10% սոց. վճար)</strong> <span id="employerCost">0</span> դրամ</div>
+                    <div class="result-line"><strong>🏢 Գործատուի ընդհանուր ծախս</strong> <span id="totalEmployerCost">0</span> դրամ</div>
+                    <div class="result-line"><strong>📅 Տարեկան զուտ (12 ամիս)</strong> <span id="yearlyNet">0</span> դրամ</div>
+                </div>
+
+                <div class="info-note" style="margin-top: 0.6rem;">
+                    ⚡ Հաշվարկը կատարվում է ՀՀ 2025թ. դրույքներով. ընդհանուր ռեժիմում PIT=20%, social=5%:<br>
+                    Միկրոռեժիմում PIT = 5000 դրամ (ֆիքսված): Երեխաների նվազեցում (15000/երեխա) նվազեցնում է հարկվող եկամուտը:
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // DOM elements
+    const grossInput = document.getElementById('grossSalary');
+    const bonusInput = document.getElementById('bonus');
+    const overtimeHoursInput = document.getElementById('overtimeHours');
+    const overtimeRateInput = document.getElementById('overtimeRate');
+    const childrenCountInput = document.getElementById('childrenCount');
+    const additionalDeductionInput = document.getElementById('additionalDeduction');
+    const nonTaxableDeductionInput = document.getElementById('nonTaxableDeduction');
+    const nightBonusInput = document.getElementById('nightShiftBonus');
+    const holidayBonusInput = document.getElementById('holidayBonus');
+    const workDaysInput = document.getElementById('workDays');
+    const calculateBtn = document.getElementById('calculateBtn');
+
+    // Regime radio
+    const regimeRadios = document.querySelectorAll('input[name="taxRegime"]');
+
+    // result spans
+    const totalGrossSpan = document.getElementById('totalGross');
+    const pitAmountSpan = document.getElementById('pitAmount');
+    const socialTaxSpan = document.getElementById('socialTax');
+    const childDeductionSpan = document.getElementById('childDeduction');
+    const totalDeductionsSpan = document.getElementById('totalDeductions');
+    const netSalarySpan = document.getElementById('netSalary');
+    const employerCostSpan = document.getElementById('employerCost');
+    const totalEmployerCostSpan = document.getElementById('totalEmployerCost');
+    const yearlyNetSpan = document.getElementById('yearlyNet');
+
+    // Helper: parse number
+    function getNumber(id) {
+        let val = document.getElementById(id).value;
+        return parseFloat(val) || 0;
+    }
+
+    function getRadioValue() {
+        for (let radio of regimeRadios) {
+            if (radio.checked) return radio.value;
+        }
+        return 'general';
+    }
+
+    function compute() {
+        // base values
+        let baseSalary = getNumber('grossSalary');
+        let bonus = getNumber('bonus');
+        let overtimeHours = getNumber('overtimeHours');
+        let overtimeRate = getNumber('overtimeRate');
+        let nightBonus = getNumber('nightShiftBonus');
+        let holidayBonus = getNumber('holidayBonus');
+        let workDays = getNumber('workDays');
+        let children = getNumber('childrenCount');
+        let additionalDeduction = getNumber('additionalDeduction');
+        let nonTaxable = getNumber('nonTaxableDeduction');
+
+        // adjust salary if workDays is not full (full month basis usually 21 days)
+        // if workDays < 21, salary proportionally decreases
+        const standardMonthDays = 21;
+        let daysFactor = 1;
+        if (workDays > 0 && workDays < standardMonthDays) {
+            daysFactor = workDays / standardMonthDays;
+        } else if (workDays <= 0) {
+            daysFactor = 0;
+        }
+        let adjustedBaseSalary = baseSalary * daysFactor;
+        let adjustedBonus = bonus * daysFactor;   // bonus can be prorated as well, but better to keep full? realistic case: bonus proportional
+        // overtime, night, holiday are usually paid for actual extra hours, not prorated? We'll keep them absolute.
+        // but for realistic: overtime doesn't get reduced because it's extra work
+        let overtimePay = overtimeHours * overtimeRate;
+
+        let totalGross = adjustedBaseSalary + adjustedBonus + overtimePay + nightBonus + holidayBonus;
+
+        // regime
+        const regime = getRadioValue();
+        let pit = 0;
+        let social = 0;
+        let childDeductionAmount = 0;
+
+        // Child deduction per child 15000 AMD monthly (Armenian tax code 2025)
+        childDeductionAmount = children * 15000;
+
+        // total taxable income after non-taxable deductions and child deduction
+        let taxableIncome = totalGross - nonTaxable - childDeductionAmount;
+        if (taxableIncome < 0) taxableIncome = 0;
+
+        if (regime === 'general') {
+            // PIT 20%
+            pit = taxableIncome * 0.20;
+            // Social 5% of totalGross? law: social contribution from employee is 5% of gross salary (not after deductions)
+            // Usually social is calculated on gross before any deductions, but child deduction doesn't affect social.
+            social = totalGross * 0.05;
+        } 
+        else if (regime === 'micro') {
+            // micro regime: fixed 5000 income tax, NO social tax
+            pit = 5000;
+            social = 0;
+            // note: child deduction does NOT apply in micro regime? Law says micro employer worker pays 5000 flat, regardless of children.
+            // so we ignore child deduction from PIT in micro mode, but we still show deduction amount for information.
+            // But we must not reduce pit in micro. So we override pit.
+            pit = 5000;
+            // taxable income concept not relevant, but keep for UI.
+        }
+
+        // additional deduction (only for general regime and reduces PIT further)
+        if (regime === 'general') {
+            pit = pit - additionalDeduction;
+            if (pit < 0) pit = 0;
+        } else {
+            // micro regime: additional deduction ignored (fixed tax)
+            // no effect
+        }
+
+        let totalDeductions = pit + social;
+        let netSalary = totalGross - totalDeductions;
+
+        // employer side: employer social tax 10% on totalGross (Armenia standard)
+        let employerSocial = totalGross * 0.10;
+        let totalEmployerCost = totalGross + employerSocial;
+
+        // yearly net (assuming 12 months full, but if days prorated we keep month consistency)
+        let yearlyNet = netSalary * 12;
+
+        // update UI
+        totalGrossSpan.innerText = Math.round(totalGross).toLocaleString('hy-AM');
+        pitAmountSpan.innerText = Math.round(pit).toLocaleString('hy-AM');
+        socialTaxSpan.innerText = Math.round(social).toLocaleString('hy-AM');
+        childDeductionSpan.innerText = childDeductionAmount.toLocaleString('hy-AM');
+        totalDeductionsSpan.innerText = Math.round(totalDeductions).toLocaleString('hy-AM');
+        netSalarySpan.innerText = Math.round(netSalary).toLocaleString('hy-AM');
+        employerCostSpan.innerText = Math.round(employerSocial).toLocaleString('hy-AM');
+        totalEmployerCostSpan.innerText = Math.round(totalEmployerCost).toLocaleString('hy-AM');
+        yearlyNetSpan.innerText = Math.round(yearlyNet).toLocaleString('hy-AM');
+    }
+
+    function bindEvents() {
+        calculateBtn.addEventListener('click', () => {
+            compute();
+        });
+        // also add event listeners for inputs to auto-update? optional but user click button anyway.
+        const allInputs = document.querySelectorAll('input, select');
+        allInputs.forEach(input => {
+            input.addEventListener('change', () => compute());
+            input.addEventListener('input', () => compute());
+        });
+        regimeRadios.forEach(radio => radio.addEventListener('change', () => compute()));
+    }
+
+    // initial calculation
+    window.addEventListener('DOMContentLoaded', () => {
+        bindEvents();
+        compute();
+    });
+</script>
+</body>
+</html>
+```

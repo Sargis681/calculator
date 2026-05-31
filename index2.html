@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Միկրո հարկատեսակ Հայաստանում | Ուղեցույց 2025</title>
+    <meta name="description" content="Հայաստանում միկրոձեռնարկատիրության հարկման համակարգի ամբողջական ուղեցույց. առավելություններ, սահմանափակումներ, 2025թ. փոփոխություններ, հաշվետվություն և համեմատություն շրջանառության հարկի հետ։">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+            line-height: 1.5;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+
+        /* header */
+        .hero {
+            background: linear-gradient(135deg, #0f2b3d 0%, #1b4a6e 100%);
+            color: white;
+            padding: 2.5rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(4px);
+            padding: 0.25rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-top: 0.75rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 1rem auto 0;
+        }
+
+        /* content */
+        .content {
+            padding: 2rem 2rem 2.5rem;
+        }
+
+        .section {
+            margin-bottom: 2.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 2rem;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        h2 {
+            font-size: 1.65rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #0c4a6e;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        h2 i {
+            font-weight: 400;
+            font-size: 1.8rem;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 1.25rem 0 0.75rem 0;
+            color: #1e293b;
+        }
+
+        p {
+            margin-bottom: 0.75rem;
+            color: #1e293b;
+        }
+
+        .highlight {
+            background: #fef9e3;
+            border-left: 5px solid #f59e0b;
+            padding: 1rem 1.25rem;
+            border-radius: 1rem;
+            margin: 1.25rem 0;
+            font-weight: 500;
+        }
+
+        .info-box {
+            background: #f1f5f9;
+            border-radius: 1rem;
+            padding: 1.25rem;
+            margin: 1.25rem 0;
+            border: 1px solid #e2e8f0;
+        }
+
+        .grid-compare {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .card {
+            background: white;
+            border-radius: 1.25rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+            flex: 1;
+            min-width: 240px;
+            transition: transform 0.1s ease;
+        }
+
+        .card-header {
+            background: #f1f5f9;
+            padding: 1rem 1.25rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+            border-bottom: 1px solid #e2e8f0;
+            border-radius: 1.25rem 1.25rem 0 0;
+        }
+
+        .card-body {
+            padding: 1.25rem;
+        }
+
+        .card-body ul {
+            padding-left: 1.25rem;
+            margin: 0.5rem 0;
+        }
+
+        .card-body li {
+            margin: 0.5rem 0;
+        }
+
+        .warning {
+            background: #fee2e2;
+            border-left: 5px solid #dc2626;
+            padding: 1rem 1.25rem;
+            border-radius: 1rem;
+            margin: 1rem 0;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #0f3b5c;
+            margin-right: 0.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid #cbd5e1;
+            padding: 0.75rem;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: #eef2ff;
+            font-weight: 600;
+        }
+
+        @media (max-width: 700px) {
+            .content {
+                padding: 1.5rem;
+            }
+            .hero h1 {
+                font-size: 1.7rem;
+            }
+            table, .grid-compare {
+                font-size: 0.85rem;
+            }
+        }
+
+        footer {
+            background: #f1f5f9;
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.85rem;
+            color: #334155;
+            border-top: 1px solid #e2e8f0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1>🇦🇲 Միկրոձեռնարկատիրության հարկային համակարգ</h1>
+        <div class="badge">2025 թ. ուժի մեջ գտնվող կարգավորումներ</div>
+        <p>Պարզեցված հարկում ամենափոքր բիզնեսի համար | Տարեկան շրջանառություն՝ մինչև 24 մլն դրամ</p>
+    </div>
+
+    <div class="content">
+        <!-- 1. Ի՞նչ է -->
+        <div class="section">
+            <h2>📌 Ի՞նչ է միկրոձեռնարկատիրության համակարգը</h2>
+            <p>Հայաստանում գործող հարկման հատուկ ռեժիմ է, որը նախատեսված է <strong>տարեկան մինչև 24 միլիոն դրամ</strong> շրջանառություն ունեցող ամենափոքր տնտեսավարողների համար: Ներդրվել է <strong>2020 թվականի հունվարի 1-ից</strong>՝ փոքր բիզնեսին աջակցելու և հարկային բեռը մեղմելու նպատակով:</p>
+            <div class="highlight">
+                ✅ <strong>Հիմնական սկզբունք</strong>. Ազատում է ԱԱՀ-ից, շահութահարկից/եկամտային հարկից (բիզնես եկամտի մասով) և գույքահարկից (բիզնեսում օգտագործվող գույքի համար):
+            </div>
+        </div>
+
+        <!-- 2. Առավելություններ -->
+        <div class="section">
+            <h2>🎯 Առավելություններ և ազատումներ</h2>
+            <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                <li><strong>0%</strong> հարկային դրույք բուն ձեռնարկատիրական գործունեությունից ստացված եկամտի նկատմամբ</li>
+                <li><strong>ԱԱՀ չի հաշվարկվում</strong> (20% կամ 0% ստանդարտ դրույքների փոխարեն)</li>
+                <li><strong>Շահութահարկ / եկամտային հարկ</strong> (IP-ի կամ ՍՊԸ-ի գործունեությունից) — Ազատված</li>
+                <li><strong>Գույքահարկ</strong> ձեռնարկատիրական գործունեության մեջ օգտագործվող գույքի նկատմամբ — Ազատված</li>
+                <li>Պարզեցված հաշվառում և փոքր քանակությամբ հաշվետվություններ</li>
+            </ul>
+            <div class="info-box">
+                🔔 <strong>Գործատուի պարտականությունները մնում են.</strong> Աշխատողների աշխատավարձից եկամտային հարկը պահվում է ամսական <strong>5,000 դրամ</strong> ֆիքսված չափով (անկախ աշխատավարձի չափից):
+            </div>
+        </div>
+
+        <!-- 3. Համեմատություն շրջանառության հարկի հետ -->
+        <div class="section">
+            <h2>⚖️ Միկրո vs. Շրջանառության հարկ</h2>
+            <p>Հայաստանում երկու հիմնական հատուկ ռեժիմներ՝ տարբեր շրջանառության սահմաններով և դրույքներով.</p>
+            <div class="grid-compare">
+                <div class="card">
+                    <div class="card-header">✅ ՄԻԿՐՈՁԵՌՆԱՐԿԱՏԻՐՈՒԹՅՈՒՆ</div>
+                    <div class="card-body">
+                        <p><strong>Տարեկան շրջանառություն</strong><br> մինչև 24 մլն դրամ</p>
+                        <p><strong>Հարկային դրույք</strong><br> <span style="font-size: 1.6rem; font-weight:800;">0%</span> (բուն գործունեությունից)</p>
+                        <p><strong>ԱԱՀ-ից ազատում</strong><br> ✅ այո</p>
+                        <p><strong>Ազատված է շահութահարկից/եկամտայինից</strong><br> ✅ այո</p>
+                        <p><strong>Աշխատողի եկամտային հարկ</strong><br> 5000 դրամ/ամիս</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">🔄 ՇՐՋԱՆԱՌՈՒԹՅԱՆ ՀԱՐԿ</div>
+                    <div class="card-body">
+                        <p><strong>Տարեկան շրջանառություն</strong><br> 24 մլն – 115 մլն դրամ</p>
+                        <p><strong>Հիմնական դրույք</strong><br> <strong>5%</strong> (առևտուր) / 2025թ.՝ 10%<br> 7% (արտադրություն), 12% (հանրային սնունդ)</p>
+                        <p><strong>ԱԱՀ-ից ազատում</strong><br> ✅ այո (մինչև 115 մլն)</p>
+                        <p><strong>Ազատված է շահութահարկից</strong><br> ✅ փոխարինվում է շրջ. հարկով</p>
+                        <p><strong>Աշխատողի եկամտային հարկ</strong><br> ստանդարտ եղանակով</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. 2025թ. կարևոր փոփոխություններ -->
+        <div class="section">
+            <h2>⚠️ 2025 թվականի խոշոր փոփոխություններ</h2>
+            <div class="warning">
+                <strong>📆 Ուժի մեջ է 2025 թ. հունվարի 1-ից (հետադարձ ուժով):</strong> Մի շարք գործունեություններ այլևս <strong>ՉԵՆ ԿԱՐՈՂ</strong> օգտվել միկրոձեռնարկատիրության համակարգից:
+            </div>
+            <h3>🚫 Բացառվող գործունեություններ (ոչ սպառիչ ցանկ)</h3>
+            <ul style="columns: 2; column-gap: 2rem; margin-left: 1.5rem;">
+                <li>• Իրավաբանական ծառայություններ</li>
+                <li>• Հաշվապահական ծառայություններ</li>
+                <li>• Անշարժ գույքի գործարքներ</li>
+                <li>• Կառավարման խորհրդատվություն</li>
+                <li>• Ավտոմեքենաների տեխ. սպասարկում</li>
+                <li>• Վարսավիրական ծառայություններ</li>
+                <li>• Շինարարական աշխատանքներ</li>
+                <li>• Ծրագրային ապահովման մշակում</li>
+                <li>• Սաունաներ, բաղնիքներ</li>
+                <li>• Որոշ միջնորդական ծառայություններ</li>
+            </ul>
+            <p><em>Եթե Ձեր գործունեությունը հայտնվում է արգելվածների ցանկում, անցումը միկրոռեժիմին անհնար է կամ պետք է լքել այն:</em></p>
+        </div>
+
+        <!-- 5. Աշխատակիցներ և հաշվետվողականություն -->
+        <div class="section">
+            <h2>📋 Հաշվետվություններ և պարտականություններ</h2>
+            <p>Միկրոձեռնարկատերերը պետք է ներկայացնեն հետևյալ ձևաթղթերը Հարկային մարմին.</p>
+            <ul style="margin-left: 1.5rem;">
+                <li><strong>Ձև 256</strong> — «Հաշվետվություն միկրոձեռնարկատիրության սուբյեկտի իրացման շրջանառության վերաբերյալ» (տարեկան)</li>
+                <li><strong>Ձև 257</strong> — «Հայտարարություն միկրոձեռնարկատիրության սուբյեկտ համարվելու վերաբերյալ» (ներկայացվում է ամեն տարի մինչև փետրվարի 20-ը)</li>
+            </ul>
+            <div class="info-box">
+                📌 <strong>Աշխատողների համար</strong>. Աշխատող ունենալու դեպքում գործատուն պարտավոր է յուրաքանչյուր աշխատակցի համար ամսական 5000 դրամ եկամտային հարկ վճարել (անկախ աշխատավարձի չափից)։ Սոցիալական վճարների մասով կան առանձին կարգավորումներ:
+            </div>
+        </div>
+
+        <!-- 6. Վիճակագրություն (2024թ.) -->
+        <div class="section">
+            <h2>📊 Տարածվածությունը Հայաստանում</h2>
+            <div style="background: #eef2ff; border-radius: 1.25rem; padding: 1.25rem; text-align: center;">
+                <span class="stat-number">57,773</span> 
+                <span style="font-weight: 500;">հարկ վճարող</span><br>
+                <span style="color: #334155;">ներկայացրել է միկրոձեռնարկատիրության մասին հայտարարություն (2024 թ. տվյալներ)</span>
+                <p style="margin-top: 12px; font-size: 0.9rem;">2021-ին թիվը կազմում էր մոտ 50,000 → կայուն աճ, վկայում է համակարգի ժողովրդականության մասին փոքր բիզնեսում:</p>
+            </div>
+        </div>
+
+        <!-- 7. Կարևոր նշումներ -->
+        <div class="section">
+            <h2>🧾 Ի՞նչ հարկեր չեն ազատվում</h2>
+            <p>Չնայած զգալի արտոնություններին, միկրոձեռնարկատերը պարտավոր է վճարել.</p>
+            <ul style="margin-left: 1.5rem;">
+                <li>• Ակցիզային հարկ (համապատասխան ապրանքների դեպքում)</li>
+                <li>• Բնապահպանական հարկ (որոշ գործունեության համար)</li>
+                <li>• Պետական տուրքեր</li>
+                <li>• Աշխատողների եկամտային հարկ (5000 դրամ/աշխատող)</li>
+            </ul>
+            <p>Միկրոռեժիմը ԱԱՀ-ից ազատում է, բայց այլ պարտադիր վճարներից լիարժեք ազատություն չի տալիս:</p>
+        </div>
+
+        <!-- 8. FAQ կարճ -->
+        <div class="section">
+            <h2>❓ Հաճախ տրվող հարցեր</h2>
+            <div class="info-box">
+                <p><strong>🔹 Կարո՞ղ է անհատ ձեռներեցը լինել միկրոձեռնարկատեր</strong><br> Այո, և՛ Անհատ ձեռներեցները, և՛ ՍՊԸ-ները կարող են դիմել, եթե բավարարեն շրջանառության պայմանին և չզբաղվեն արգելված գործունեությամբ:</p>
+                <p><strong>🔹 Եթե շրջանառությունը գերազանցի 24 մլն դրամը</strong><br> Հարկային տարվա ընթացքում սահմանը գերազանցելու դեպքում կորցնում եք միկրոռեժիմի իրավունքը և ավտոմատ կերպով անցնում եք շրջանառության հարկի կամ ընդհանուր հարկման համակարգին:</p>
+                <p><strong>🔹 Արդյո՞ք պետք է ՀԴՄ օգտագործել</strong><br> Այո, եթե իրացումը կատարվում է կանխիկ կամ բանկային քարտով ֆիզիկական անձանց հետ, ապա անհրաժեշտ է ՀԴՄ կտրոն: Հակառակ դեպքում՝ տուգանք:</p>
+            </div>
+        </div>
+    </div>
+    <footer>
+        © 2025 · Տեղեկատվությունը հիմնված է ՀՀ հարկային օրենսդրության վրա (փոփոխություններ՝ 2025թ. հունվարի 1-ից)։<br>
+        Տվյալները նախատեսված են տեղեկատվական նպատակների համար, խորհրդատվության համար դիմե՛ք մասնագետի։
+    </footer>
+</div>
+</body>
+</html>
